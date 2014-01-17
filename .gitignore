@@ -1,0 +1,4 @@
+modules
+.librarian
+.tmp
+Puppetfile.lock
