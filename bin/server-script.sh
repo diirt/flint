@@ -7,11 +7,7 @@ then
     exit -1
 fi
 
-BASEDIR=$(dirname $0)
-FIRSTIOC="phase1"
 ETH="eth1"
-cd $BASEDIR
-./start-ioc.sh $FIRSTIOC
 while true; do
   COMMAND=`./wait-for-command.sh 2> /dev/null`
   case $COMMAND in
@@ -19,28 +15,22 @@ while true; do
              NSEC=`echo $COMMAND | cut -d " " -f 3`
              IOC=`echo $COMMAND | cut -d " " -f 2`
              IOCDIR=`echo ../$IOC`
-             if [ -d "$IOCDIR" ]; then
-               echo Stopping current IOC
-               ./stop-ioc.sh &> /dev/null
-               echo Waiting $NSEC seconds
-               sleep `echo $COMMAND | cut -d " " -f 3`
-               ./start-ioc.sh `echo $COMMAND | cut -d " " -f 2`
-               sleep 1
-             else
-               echo IOC $IOC does not exist: skipping command
+             if [ -n "$RUNNINGIOC" ]
+             then
+               /etc/init.d/softioc-$RUNNINGIOC stop
              fi
+             echo Waiting $NSEC seconds
+             sleep $NSEC
+             /etc/init.d/softioc-$IOC start
+             sleep 1
+             RUNNINGIOC=$IOC
              ;;
      netpause*) echo Executing \"$COMMAND\"
              ./network-pause.sh $ETH `echo $COMMAND | cut -d " " -f 2`
              ;;
-     connections*) echo Executing \"$COMMAND\"
-             PV=`echo $COMMAND | cut -d " " -f 2`
-             OUTPUT=`./channel-connections.sh $PV`
-             caput output $OUTPUT &> /dev/null
-             ;;
      stop*) echo Shutting down
              echo Stopping current IOC
-             ./stop-ioc.sh &> /dev/null
+             /etc/init.d/softioc-$RUNNINGIOC stop
              echo Done
              exit 0;
              ;;

@@ -1,7 +1,3 @@
-record(stringin, "command") {
-  field(DESC, "Command for the server script")
-}
-
 record(waveform, "double-to-i32") {
   field(DESC, "Long value")
   field(FTVL, "LONG")
