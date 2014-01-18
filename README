@@ -1,0 +1,19 @@
+  This repo provides some Vagrant/Puppet manifests that automatically install
+  and configure some simple EPICS IOCs in a Virtual Machine. The IOCs are
+  primarily intended for integration testing of pvmanager.
+
+Software requirements:
+
+  Virtual Box
+  Vagrant
+  Git
+  Puppet
+  librarian-puppet
+
+Run the following commands to bring up the virtual machine:
+
+  > librarian-puppet install
+  > vagrant up
+
+Contact:
+  Author: Martin Konrad <konrad at frib.msu.edu>
