@@ -1,7 +1,4 @@
-import 'classes/*.pp'
-
 node 'testioc.example.com' {
-  include vagrant
   include apt
 
   $iocbase = '/usr/local/lib/iocapps'
@@ -110,7 +107,5 @@ node 'testioc.example.com' {
     require     => Vcsrepo[$iocbase],
   }
 
-  Class['vagrant'] -> Class['apt']
-  Class['vagrant'] -> Class['epics_softioc']
   Apt::Source['nsls2repo'] -> Class['epics_softioc']
 }
