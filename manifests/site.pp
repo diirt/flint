@@ -20,27 +20,7 @@ node 'testioc.example.com' {
     ensure => present,
   }
 
-  exec { 'download InCommonServerCA root certificate':
-    command => 'wget http://cert.incommon.org/InCommonServerCA.crt',
-    path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-  }
-
-  exec { 'convert InCommonServerCA root certificate to PEM format':
-    command => 'openssl x509 -inform DER -in InCommonServerCA.crt -out InCommonServerCA.pem',
-    path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    require => Exec['download InCommonServerCA root certificate'],
-  }
-
-  exec { 'move InCommonServerCA root certificate in place':
-    command => 'cp InCommonServerCA.pem /usr/local/share/ca-certificates/InCommonServerCA.crt',
-    path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    require => Exec['convert InCommonServerCA root certificate to PEM format'],
-  }
-
-  exec { 'update CA certificates':
-    command => 'update-ca-certificates',
-    path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    require => Exec['move InCommonServerCA root certificate in place'],
+  class { incommon_ca_cert:
   }
 
   vcsrepo { $iocbase:
@@ -49,7 +29,7 @@ node 'testioc.example.com' {
     source   => 'https://stash.nscl.msu.edu/scm/test/pv_manager_test_iocs.git',
     require  => [
       Package['git'],
-      Exec['update CA certificates'],
+      Class['incommon_ca_cert'],
     ],
     notify   => [
       Epics_softioc::Ioc['control'],
