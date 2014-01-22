@@ -47,23 +47,18 @@ node 'testioc.example.com' {
     require     => Vcsrepo[$iocbase],
   }
 
-#  file { '/usr/local/bin':
-#    source  => '/vagrant/files/pvmanager/pvmanager-integration/epics/bin',
-#    recurse => true,
-#    owner   => 'root',
-#    group   => 'root',
-#  }
-
   file { '/etc/init.d/testcontroller':
     source => '/vagrant/files/etc/init.d/testcontroller',
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
+    require => Vcsrepo[$iocbase],
   }
 
   service { 'testcontroller':
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
+    require => File['/etc/init.d/testcontroller'],
   }
 
   epics_softioc::ioc { 'phase1':
