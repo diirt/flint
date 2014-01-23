@@ -1,0 +1,7 @@
+# Add some equally distributed random numbers. According to the Central Limit
+# Theorem the sum of random numbers becomes more and more normally distributed
+# as more and more of them are added together. We add 10 and hope for the best.
+record(calc, "$(PREFIX):fakeGaussianNoise") {
+  field(CALC, "RNDM + RNDM + RNDM + RNDM + RNDM + RNDM + RNDM + RNDM + RNDM + RNDM - 5")
+  field(SCAN, ".1 second")
+}
