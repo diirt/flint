@@ -1,0 +1,20 @@
+record(ao, "$(PREFIX):sineScanRate") {
+  field(VAL, "100")
+  field(PINI, "YES")
+}
+
+record(ao, "$(PREFIX):sinePeriod") {
+  field(DESC, "Period of sine signal")
+  field(EGU, "s")
+  field(PREC, "2")
+  field(VAL, "1")
+  field(PINI, "YES")
+}
+
+record(calc, "$(PREFIX):sine") {
+  field(DESC, "Sine Signal")
+  field(CALC, "SIN(PI * A / (C * B))")
+  field(INPA, "$(PREFIX):waveformCounter-100Hz_ CPP MS")
+  field(INPB, "$(PREFIX):sinePeriod")
+  field(INPC, "$(PREFIX):sineScanRate")
+}
