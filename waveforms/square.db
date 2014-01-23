@@ -1,0 +1,20 @@
+record(ao, "$(PREFIX):squareScanRate") {
+  field(VAL, "100")
+  field(PINI, "YES")
+}
+
+record(ao, "$(PREFIX):squarePeriod") {
+  field(DESC, "Period of square signal")
+  field(EGU, "s")
+  field(PREC, "2")
+  field(VAL, "1")
+  field(PINI, "YES")
+}
+
+record(calc, "$(PREFIX):square") {
+  field(DESC, "Square Signal")
+  field(CALC, "4 * FLOOR(A / (2 * C * B)) - 2 * FLOOR(2 * A / (2 * C * B)) + 1")
+  field(INPA, "$(PREFIX):waveformCounter-100Hz_ CPP MS")
+  field(INPB, "$(PREFIX):squarePeriod")
+  field(INPC, "$(PREFIX):squareScanRate")
+}
