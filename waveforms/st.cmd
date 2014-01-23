@@ -2,4 +2,5 @@
 dbLoadRecords("waveformCounters.db", "PREFIX=TST")
 dbLoadRecords("square.db", "PREFIX=TST")
 dbLoadRecords("sawtooth.db", "PREFIX=TST")
+dbLoadRecords("triangle.db", "PREFIX=TST")
 iocInit
