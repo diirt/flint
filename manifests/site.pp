@@ -58,6 +58,8 @@ node 'testioc.example.com' {
   service { 'testcontroller':
     ensure  => running,
     enable  => true,
+    hasstatus => true,
+    hasrestart => true,
     require => File['/etc/init.d/testcontroller'],
   }
 
