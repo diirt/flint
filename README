@@ -15,5 +15,12 @@ Run the following commands to bring up the virtual machine:
   > librarian-puppet install
   > vagrant up
 
+  Note for Windows users: Run
+
+  > git config --global core.autocrlf false
+
+  before checking out the Git repositories. Otherwise Git will convert Unix
+  line breaks (LF) to CR+LF. This will break init scripts etc.!
+
 Contact:
   Author: Martin Konrad <konrad at frib.msu.edu>
