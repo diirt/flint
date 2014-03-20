@@ -1,0 +1,6 @@
+record(calc, "$(PREFIX):uniformNoise") {
+  field(CALC, "2 * RNDM - 1")
+  field(PREC, "2")
+  field(SCAN, ".1 second")
+}
+

@@ -1,0 +1,6 @@
+# Real gaussian noise. See Steven W. Smith: The Scientist and Engineer's Guide
+# to Digital Signal Processing. http://www.dspguide.com/ch2/6.htm
+record(calc, "$(PREFIX):gaussianNoise") {
+  field(CALC, "SQRT(-2 * LN(RNDM)) * COS(2 * PI * RNDM)")
+  field(SCAN, ".1 second")
+}
