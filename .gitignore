@@ -1,5 +1,5 @@
-modules
-.librarian
-.tmp
-Puppetfile.lock
-.vagrant
+vagrant/modules
+vagrant/.librarian
+vagrant/.tmp
+vagrant/Puppetfile.lock
+vagrant/.vagrant
