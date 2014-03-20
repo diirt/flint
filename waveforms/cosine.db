@@ -1,0 +1,20 @@
+record(ao, "$(PREFIX):cosineScanRate") {
+  field(VAL, "100")
+  field(PINI, "YES")
+}
+
+record(ao, "$(PREFIX):cosinePeriod") {
+  field(DESC, "Period of cosine signal")
+  field(EGU, "s")
+  field(PREC, "2")
+  field(VAL, "1")
+  field(PINI, "YES")
+}
+
+record(calc, "$(PREFIX):cosine") {
+  field(DESC, "Cosine Signal")
+  field(CALC, "COS(PI * A / (C * B))")
+  field(INPA, "$(PREFIX):waveformCounter-100Hz_ CPP MS")
+  field(INPB, "$(PREFIX):cosinePeriod")
+  field(INPC, "$(PREFIX):cosineScanRate")
+}

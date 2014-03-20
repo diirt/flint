@@ -1,0 +1,12 @@
+record(calcout, "$(PREFIX):waveformCounter-10Hz_") {
+  field(SCAN, ".1 second")
+  field(CALC, "VAL + 1")
+}
+
+record(calcout, "$(PREFIX):waveformCounter-100Hz_") {
+  field(PINI, "RUNNING")
+  field(INPA, "$(PREFIX):waveformCounter-100Hz_.VAL NPP")
+  field(CALC, "A+1")
+  field(ODLY, "0.01")
+  field(OUT , "$(PREFIX):waveformCounter-100Hz_.PROC CA")
+}

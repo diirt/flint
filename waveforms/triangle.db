@@ -1,0 +1,20 @@
+record(ao, "$(PREFIX):triangleScanRate") {
+  field(VAL, "100")
+  field(PINI, "YES")
+}
+
+record(ao, "$(PREFIX):trianglePeriod") {
+  field(DESC, "Period of triangle signal")
+  field(EGU, "s")
+  field(PREC, "2")
+  field(VAL, "1")
+  field(PINI, "YES")
+}
+
+record(calc, "$(PREFIX):triangle") {
+  field(DESC, "Triangle Signal")
+  field(CALC, "ABS(A / (C * B) - 2 * FLOOR(0.5 + A / (2 * C * B)))")
+  field(INPA, "$(PREFIX):waveformCounter-100Hz_ CPP MS")
+  field(INPB, "$(PREFIX):trianglePeriod")
+  field(INPC, "$(PREFIX):triangleScanRate")
+}

@@ -1,0 +1,20 @@
+record(ao, "$(PREFIX):sawtoothScanRate") {
+  field(VAL, "100")
+  field(PINI, "YES")
+}
+
+record(ao, "$(PREFIX):sawtoothPeriod") {
+  field(DESC, "Period of sawtooth signal")
+  field(EGU, "s")
+  field(PREC, "2")
+  field(VAL, "1")
+  field(PINI, "YES")
+}
+
+record(calcout, "$(PREFIX):sawtooth") {
+  field(DESC, "Sawtooth Signal")
+  field(CALC, "2 * (A / (2 * C * B) - FLOOR(0.5 + A / (2 * C * B)))")
+  field(INPA, "$(PREFIX):waveformCounter-100Hz_ CPP MS")
+  field(INPB, "$(PREFIX):sawtoothPeriod")
+  field(INPC, "$(PREFIX):sawtoothScanRate")
+}
