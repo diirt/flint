@@ -1,6 +1,6 @@
 *~
-vagrant/modules
-vagrant/.librarian
-vagrant/.tmp
-vagrant/Puppetfile.lock
-vagrant/.vagrant
+flint-vagrant/modules
+flint-vagrant/.librarian
+flint-vagrant/.tmp
+flint-vagrant/Puppetfile.lock
+flint-vagrant/.vagrant
