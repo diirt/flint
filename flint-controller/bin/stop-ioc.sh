@@ -2,7 +2,7 @@
 BASEDIR=$(dirname $0)
 PID_NAME="softIoc.pid"
 PORT=12345
-cd $BASEDIR/..
+cd $BASEDIR/../../flint-ca
 if [ ! -f $PID_NAME ]; then
   echo "No running process. Nothing to do"
 else
