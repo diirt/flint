@@ -1,4 +1,5 @@
 *~
+flint-controller/softIoc.pid
 flint-ca/softIoc.pid
 flint-ca/current-ioc
 flint-vagrant/modules
