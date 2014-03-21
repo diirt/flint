@@ -1,4 +1,6 @@
 *~
+flint-ca/softIoc.pid
+flint-ca/current-ioc
 flint-vagrant/modules
 flint-vagrant/.librarian
 flint-vagrant/.tmp
