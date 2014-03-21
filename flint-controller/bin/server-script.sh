@@ -7,6 +7,10 @@ then
     exit -1
 fi
 
+BASEDIR=$(dirname $0)
+cd $BASEDIR
+./start-controller.sh
+
 ETH="eth1"
 while true; do
   COMMAND=`./wait-for-command.sh 2> /dev/null`
@@ -14,16 +18,16 @@ while true; do
      start*) echo Executing \"$COMMAND\"
              NSEC=`echo $COMMAND | cut -d " " -f 3`
              IOC=`echo $COMMAND | cut -d " " -f 2`
-             IOCDIR=`echo ../$IOC`
-             if [ -n "$RUNNINGIOC" ]
-             then
-               /etc/init.d/softioc-$RUNNINGIOC stop
+             IOCDIR=`echo ../../flint-ca/$IOC`
+             if [ -d "$IOCDIR" ]; then
+                echo Stopping current IOC
+                ./stop-ioc.sh &> /dev/null
+                echo Waiting $NSEC seconds
+                sleep $NSEC
+                ./start-ioc.sh $IOC
+             else
+                echo IOC $IOC does not exist: skipping command
              fi
-             echo Waiting $NSEC seconds
-             sleep $NSEC
-             /etc/init.d/softioc-$IOC start
-             sleep 1
-             RUNNINGIOC=$IOC
              ;;
      netpause*) echo Executing \"$COMMAND\"
              ./network-pause.sh $ETH `echo $COMMAND | cut -d " " -f 2`
@@ -35,7 +39,7 @@ while true; do
              ;;
      stop*) echo Shutting down
              echo Stopping current IOC
-             /etc/init.d/softioc-$RUNNINGIOC stop
+             ./stop-ioc.sh &> /dev/null
              echo Done
              exit 0;
              ;;
