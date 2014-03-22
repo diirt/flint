@@ -9,6 +9,8 @@ fi
 
 BASEDIR=$(dirname $0)
 cd $BASEDIR
+./stop-controller.sh
+./clean.sh
 ./start-controller.sh
 
 ETH="eth1"
@@ -25,6 +27,7 @@ while true; do
                 echo Waiting $NSEC seconds
                 sleep $NSEC
                 ./start-ioc.sh $IOC
+                sleep 1
              else
                 echo IOC $IOC does not exist: skipping command
              fi
@@ -34,8 +37,10 @@ while true; do
              ;;
      connections*) echo Executing \"$COMMAND\"
              PV=`echo $COMMAND | cut -d " " -f 2`
+             echo Querying connection for pv $PV
              OUTPUT=`./channel-connections.sh $PV`
              caput output $OUTPUT &> /dev/null
+             echo Found $OUTPUT connections
              ;;
      stop*) echo Shutting down
              echo Stopping current IOC
